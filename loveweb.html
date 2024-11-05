@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>初明and春暖花富贵</title>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<style>
+  .headimgcontainer {
+    margin-left: auto;
+    margin-right: auto;
+
+    height: 30vw;
+    background-image: url("./img/headimgbg.jpg");
+    background-size: 100% 100%;
+    text-align: center;
+  }
+
+  #man,
+  #woman,
+  #love {
+    display: inline-block;
+    margin-top: 2.5vw;
+    font-size: x-large;
+    color: #fff;
+  }
+
+  .headimgcontainer img {
+    width: 20vw;
+    height: 20vw;
+  }
+  #memory{
+    height: 92vw;
+
+    background-image: url(./img/momerybg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+
+  }
+  #memory div{
+    display: inline-block;
+  }
+  #memory button{
+    display: inline-block;
+    margin-top: 50%;
+  }
+  #memoryImg{
+    width: 50vw;
+  }
+</style>
+
+<body>
+  <div id="main">
+    <div class="headimgcontainer">
+      <div id="man">
+        <img src="./img/man.jpg" alt="">
+        <div>初明</div>
+      </div>
+      <div id="love">
+        <img src="./img/love.png" alt="">
+        <div> </div>
+      </div>
+      <div id="woman">
+        <img src="./img/woman.jpg" alt="">
+        <div>春暖花富贵</div>
+      </div>
+      <div id="timestamp" style="color: skyblue;font-size: xx-large;">我们已经在一起</div>
+    </div>
+    <div id="memory">
+      <div style="width: 23vw;">
+        <img src="./img/aside.jpeg" alt="" style="width: 23vw;">
+        <button onclick="previous()" style="width: 23vw;"><img src="./img/方向方向-向左.png" alt=""></button>
+      </div>
+      
+      <div><img id="memoryImg" style="width: 50vw;max-height: 90vw;" src="./img/memory/01.jpg" alt=""></div>
+      <div style="width: 23vw;">
+        <img src="./img/aside2.png" alt="" style="width: 23vw;">
+        <button onclick="nextpic()" style="width: 23vw;"><img src="./img/方向向右-双.png" alt=""></button>
+      </div>
+      
+    </div>
+    <div><img src="./img/contract.jpg" alt="" style="width: 100%;"></div>
+  </div>
+</body>
+<script>
+  //计算时间
+  function timestamp(){
+    var date1 = '2024/10/01 08:00:00'; //开始时间
+    var date2 = new Date(); //结束时间
+    var date3 = date2.getTime() - new Date(date1).getTime(); //时间差的毫秒数    
+    //计算出相差天数
+    var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+    //计算出小时数
+    var leave1 = date3 % (24 * 3600 * 1000) //计算天数后剩余的毫秒数
+    var hours = Math.floor(leave1 / (3600 * 1000))
+    //计算相差分钟数
+    var leave2 = leave1 % (3600 * 1000) //计算小时数后剩余的毫秒数
+    var minutes = Math.floor(leave2 / (60 * 1000))
+    //计算相差秒数
+    var leave3 = leave2 % (60 * 1000) //计算分钟数后剩余的毫秒数
+    var seconds = Math.round(leave3 / 1000)
+    $("#timestamp").html(" 我们已经在一起 " + days + "天 " + hours + "小时 " + minutes + " 分钟" + seconds + " 秒")
+  }
+  setInterval("timestamp()",1000)
+  //图片轮播
+  function nextpic(){
+    var numSrc=$("#memoryImg").prop("src")
+    var num=numSrc.slice(-6,-4)
+    num=Number(num)+1
+    if(num<10){
+      var path="./img/memory/0"+num+".jpg"
+    }else{
+      var path="./img/memory/"+num+".jpg"
+    }
+    console.log(path)
+    $("#memoryImg").attr("src",path)
+  }
+
+  function previous(){
+    var numSrc=$("#memoryImg").prop("src")
+    var num=numSrc.slice(-6,-4)
+    num=Number(num)-1
+    if(num==0){
+      num=70
+    }
+    if(num<10){
+      var path="./img/memory/0"+num+".jpg"
+    }else{
+      var path="./img/memory/"+num+".jpg"
+    }
+    console.log(path)
+    $("#memoryImg").attr("src",path)
+  }
+
+  function nextpic(){
+    var numSrc=$("#memoryImg").prop("src")
+    var num=numSrc.slice(-6,-4)
+    num=Number(num)+1
+    if(num==71){
+      num=01
+    }
+    if(num<10){
+      var path="./img/memory/0"+num+".jpg"
+    }else{
+      var path="./img/memory/"+num+".jpg"
+    }
+    console.log(path)
+    $("#memoryImg").attr("src",path)
+  }
+  setInterval("nextpic()",3000)
+</script>
+
+</html>
